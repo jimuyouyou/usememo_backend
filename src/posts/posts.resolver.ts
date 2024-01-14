@@ -87,9 +87,9 @@ export class PostsResolver {
   }
 
   @Query(() => [Post])
-  userPosts(@Args() id: UserIdArgs) {
+  userPosts(@Args('id') id: string) {
     return this.prisma.user
-      .findUnique({ where: { id: id.userId } })
+      .findUnique({ where: { id: id } })
       .posts({ where: { published: true } });
 
     // or

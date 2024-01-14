@@ -155,6 +155,14 @@ Run Nest Server in Production mode:
 npm run start:prod
 ```
 
+### 7. Prisma GUI
+
+```bash
+npx prisma studio
+```
+
+[Visit localhost:5555](http://localhost:5555)
+
 GraphQL Playground for the NestJS Server is available here: http://localhost:3000/graphql
 
 **[⬆ back to top](#overview)**

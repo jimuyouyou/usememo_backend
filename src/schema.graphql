@@ -107,7 +107,7 @@ type Query {
   me2: User!
   post: Post!
   publishedPosts(orderBy: PostOrder, query: String): PostConnection!
-  userPosts: [Post!]!
+  userPosts(id: String!): [Post!]!
 }
 
 """User role"""
