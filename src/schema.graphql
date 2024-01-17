@@ -16,6 +16,12 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
+input CreateFolderInput {
+  content: String!
+  description: String!
+  title: String!
+}
+
 input CreatePostInput {
   content: String!
   title: String!
@@ -25,6 +31,46 @@ input CreatePostInput {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type Folder {
+  author: User
+  content: String
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  id: ID!
+  published: Boolean!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
+type FolderConnection {
+  edges: [FolderEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type FolderEdge {
+  cursor: String!
+  node: Folder!
+}
+
+input FolderOrder {
+  direction: OrderDirection!
+  field: FolderOrderField!
+}
+
+"""Properties by which connections can be ordered."""
+enum FolderOrderField {
+  createdAt
+  description
+  id
+  published
+  title
+  updatedAt
+}
 
 """
 A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
@@ -38,6 +84,7 @@ input LoginInput {
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
+  createFolder(data: CreateFolderInput!): Folder!
   createPost(data: CreatePostInput!): Post!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
@@ -101,12 +148,15 @@ enum PostOrderField {
 }
 
 type Query {
+  folder(id: String!): Folder!
   hello(name: String!): String!
   helloWorld: String!
   me: User!
   me2: User!
   post: Post!
+  publishedFolders(orderBy: FolderOrder, query: String): FolderConnection!
   publishedPosts(orderBy: PostOrder, query: String): PostConnection!
+  userFolders(id: String!): [Folder!]!
   userPosts(id: String!): [Post!]!
 }
 
@@ -124,6 +174,7 @@ input SignupInput {
 }
 
 type Subscription {
+  folderCreated: Folder!
   postCreated: Post!
 }
 

@@ -21,6 +21,8 @@ model User {
   firstname String?
   lastname  String?
   posts     Post[]
+  folders   Folder[]
+  wsets     WSet[]
   role      Role
 }
 
@@ -33,6 +35,43 @@ model Post {
   content   String?
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  String?
+}
+
+model Folder {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  description String
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  String?
+  wsets     WSet[]
+}
+
+model WSet {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  description String
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  String?
+  folder    Folder?  @relation(fields: [folderId], references: [id])
+  folderId  String?
+  words     Word[]
+}
+
+model Word {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  titleLang   String
+  description String
+  descLang    String
+  img         String
+  wset        WSet?    @relation(fields: [setId], references: [id])
+  setId       String?
 }
 
 enum Role {
