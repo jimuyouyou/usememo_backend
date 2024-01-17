@@ -102,6 +102,7 @@ export class AuthService {
 
   refreshToken(token: string) {
     try {
+      console.log('refreshToken before ', token)
       const { userId } = this.jwtService.verify(token, {
         secret: this.configService.get('JWT_REFRESH_SECRET'),
       });

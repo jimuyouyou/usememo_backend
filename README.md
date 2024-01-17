@@ -30,3 +30,6 @@ npm start
 ## API Platforms
 [edenai](https://app.edenai.run/bricks/default)
 [eden-ai-vs-hugging-face](https://hackernoon.com/eden-ai-vs-hugging-face-use-cases-target-users-and-value-propositions)
+
+## JWT Auth
+- [official doc](https://docs.nestjs.com/security/authentication)

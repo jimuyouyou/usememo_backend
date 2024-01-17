@@ -1,6 +1,7 @@
-import { ArgsType } from '@nestjs/graphql';
+import { InputType, ArgsType } from '@nestjs/graphql';
 
 @ArgsType()
+// @InputType()
 export class PaginationArgs {
   skip?: number;
 
