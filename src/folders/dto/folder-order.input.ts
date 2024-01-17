@@ -5,7 +5,6 @@ export enum FolderOrderField {
   id = 'id',
   createdAt = 'createdAt',
   updatedAt = 'updatedAt',
-  published = 'published',
   title = 'title',
   description = 'description',
 }

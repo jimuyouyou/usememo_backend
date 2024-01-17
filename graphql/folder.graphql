@@ -1,0 +1,47 @@
+query UserFolders {
+  userFolders(id: "clrhtrfo20000wo0egbn27yhb") {
+    ...FolderData
+  }
+}
+
+# query PublishedFoldersConnection {
+#   publishedFolders(first: 20, orderBy: { field: title, direction: desc }) {
+#     totalCount
+#     edges {
+#       cursor
+#       node {
+#         ...FolderData
+#         author {
+#           ...UserData
+#         }
+#       }
+#     }
+#     pageInfo {
+#       startCursor
+#       endCursor
+#       hasNextPage
+#       hasPreviousPage
+#     }
+#   }
+# }
+
+
+mutation CreateFolder {
+  createFolder(data: { description: "Hello", title: "New Folder" }) {
+    ...FolderData
+  }
+}
+
+# subscription SubscriptionFolder {
+#   folderCreated {
+#     ...FolderData
+#   }
+# }
+
+fragment FolderData on Folder {
+  id
+  createdAt
+  updatedAt
+  title
+  description
+}

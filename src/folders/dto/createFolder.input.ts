@@ -5,10 +5,6 @@ import { InputType, Field } from '@nestjs/graphql';
 export class CreateFolderInput {
   @Field()
   @IsNotEmpty()
-  content: string;
-
-  @Field()
-  @IsNotEmpty()
   title: string;
 
   @Field()

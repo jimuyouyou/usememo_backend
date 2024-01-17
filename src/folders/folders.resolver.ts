@@ -90,7 +90,6 @@ export class FoldersResolver {
     // or
     // return this.prisma.folders.findMany({
     //   where: {
-    //     published: true,
     //     author: { id: id.userId }
     //   }
     // });

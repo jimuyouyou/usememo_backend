@@ -8,10 +8,7 @@ export class Folder extends BaseModel {
   title: string;
 
   @Field(() => String, { nullable: true })
-  content?: string | null;
-
-  @Field(() => Boolean)
-  published: boolean;
+  description?: string | null;
 
   @Field(() => User, { nullable: true })
   author?: User | null;
