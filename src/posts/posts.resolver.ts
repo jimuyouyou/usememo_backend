@@ -53,7 +53,7 @@ export class PostsResolver {
 
   @Query(() => PostConnection)
   async publishedPosts(
-    @Args() { after, before, first, last } : PaginationArgs,
+    @Args() { after, before, first, last }: PaginationArgs,
     @Args({ name: 'query', type: () => String, nullable: true })
     query: string,
     @Args({

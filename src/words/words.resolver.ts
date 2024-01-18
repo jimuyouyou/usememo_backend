@@ -51,8 +51,8 @@ export class WordsResolver {
   @Mutation(() => Word)
   async updateWord(
     @UserEntity() user: User,
-    @Args('data') data: CreateWordInput,
     @Args('id') id: string,
+    @Args('data') data: CreateWordInput,
   ) {
     const newWord = this.prisma.word.update({
       where: { id },

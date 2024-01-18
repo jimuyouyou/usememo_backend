@@ -4,5 +4,5 @@ import { IsNotEmpty } from 'class-validator';
 @ArgsType()
 export class XwordIdArgs {
   @IsNotEmpty()
-  wordId: string;
+  xwordId: string;
 }

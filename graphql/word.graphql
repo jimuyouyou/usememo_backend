@@ -1,0 +1,64 @@
+query OneWord {
+  word(id: "clrhtrfo20000wo0egbn27yhb") {
+    ...WordData
+  }
+}
+
+query SetWords {
+  setWords(id: "clrhtrfo20000wo0egbn27yhb") {
+    ...WordData
+  }
+}
+
+# query PublishedWordsConnection {
+#   publishedWords(first: 20, orderBy: { field: title, direction: desc }) {
+#     totalCount
+#     edges {
+#       cursor
+#       node {
+#         ...WordData
+#         author {
+#           ...UserData
+#         }
+#       }
+#     }
+#     pageInfo {
+#       startCursor
+#       endCursor
+#       hasNextPage
+#       hasPreviousPage
+#     }
+#   }
+# }
+
+mutation CreateWord {
+  createWord(
+    data: {
+      description: "Hello"
+      title: "New Word"
+      setId: "clrhtrfo20000wo0egbn27yhb"
+    }
+  ) {
+    ...WordData
+  }
+}
+
+mutation UpdateWord {
+  updateWord(data: { description: "Hello", title: "New Word" }) {
+    ...WordData
+  }
+}
+
+# subscription SubscriptionWord {
+#   folderCreated {
+#     ...WordData
+#   }
+# }
+
+fragment WordData on Word {
+  id
+  createdAt
+  updatedAt
+  title
+  description
+}

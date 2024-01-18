@@ -14,7 +14,6 @@ import { UseGuards } from '@nestjs/common';
 import { PaginationArgs } from '../common/pagination/pagination.args';
 import { UserEntity } from '../common/decorators/user.decorator';
 import { User } from '../users/models/user.model';
-import { WSet } from '../wsets/models/WSet.model';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { XwordIdArgs } from './args/xword-id.args';
 import { UserIdArgs } from './args/user-id.args';
@@ -40,10 +39,10 @@ export class XwordsResolver {
     @UserEntity() user: User,
     @Args('data') data: CreateXwordInput,
   ) {
-    const newXword = this.prisma.word.create({
+    const newXword = this.prisma.xword.create({
       data,
     });
-    pubSub.publish('wordCreated', { wordCreated: newXword });
+    pubSub.publish('xwordCreated', { wordCreated: newXword });
     return newXword;
   }
 
@@ -51,14 +50,14 @@ export class XwordsResolver {
   @Mutation(() => Xword)
   async updateXword(
     @UserEntity() user: User,
-    @Args('data') data: CreateXwordInput,
     @Args('id') id: string,
+    @Args('data') data: CreateXwordInput,
   ) {
-    const newXword = this.prisma.word.update({
+    const newXword = this.prisma.xword.update({
       where: { id },
       data,
     });
-    pubSub.publish('wordUpdated', { wordUpdated: newXword });
+    pubSub.publish('xwordUpdated', { wordUpdated: newXword });
     return newXword;
   }
 
@@ -76,7 +75,7 @@ export class XwordsResolver {
   ) {
     const a = await findManyCursorConnection(
       (args) =>
-        this.prisma.word.findMany({
+        this.prisma.xword.findMany({
           // include: { author: true },
           where: {
             title: { contains: query || '' },
@@ -85,7 +84,7 @@ export class XwordsResolver {
           ...args,
         }),
       () =>
-        this.prisma.word.count({
+        this.prisma.xword.count({
           where: {
             title: { contains: query || '' },
           },
@@ -96,17 +95,16 @@ export class XwordsResolver {
   }
 
   @Query(() => [Xword])
-  setXwords(@Args('id') id: string) {
-    return this.prisma.wSet.findUnique({ where: { id: id } }).words();
+  titleXwords(
+    @Args('title') title: string,
+    @Args('titleLang') titleLang: string,
+  ) {
+    const res = this.prisma.xword.findMany({ where: { title, titleLang } });
+    return res && res[0];
   }
 
   @Query(() => Xword)
-  async word(@Args('id') id: string) {
-    return this.prisma.word.findUnique({ where: { id } });
-  }
-
-  @ResolveField('wset', () => WSet)
-  async wset(@Parent() word: Xword) {
-    return this.prisma.word.findUnique({ where: { id: word.id } }).wset();
+  async xword(@Args('id') id: string) {
+    return this.prisma.xword.findUnique({ where: { id } });
   }
 }

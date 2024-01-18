@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { WSet } from '../../wsets/models/wset.model';
 import { BaseModel } from '../../common/models/base.model';
 
 @ObjectType()
@@ -21,7 +20,4 @@ export class Xword extends BaseModel {
 
   @Field(() => String, { nullable: true })
   audio?: string | null;
-
-  @Field(() => WSet, { nullable: true })
-  wset?: WSet | null;
 }

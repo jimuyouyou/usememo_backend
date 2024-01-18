@@ -32,7 +32,7 @@ export class UsersResolver {
   async me2(@UserEntity() user: User): Promise<User> {
     return user;
   }
-  
+
   @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
   async updateUser(
@@ -59,9 +59,4 @@ export class UsersResolver {
   posts(@Parent() author: User) {
     return this.prisma.user.findUnique({ where: { id: author.id } }).posts();
   }
-
-  
-
-  
-
 }

@@ -42,6 +42,15 @@ input CreateWordInput {
   titleLang: String!
 }
 
+input CreateXwordInput {
+  audio: String!
+  descLang: String!
+  description: String!
+  img: String!
+  title: String!
+  titleLang: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -101,11 +110,13 @@ type Mutation {
   createPost(data: CreatePostInput!): Post!
   createWSet(data: CreateWSetInput!): WSet!
   createWord(data: CreateWordInput!): Word!
+  createXword(data: CreateXwordInput!): Xword!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
   signup(data: SignupInput!): Auth!
   updateUser(data: UpdateUserInput!): User!
   updateWord(data: CreateWordInput!, id: String!): Word!
+  updateXword(data: CreateXwordInput!, id: String!): Xword!
 }
 
 """
@@ -175,12 +186,15 @@ type Query {
   publishedPosts(orderBy: PostOrder, query: String): PostConnection!
   publishedWSets(orderBy: WSetOrder, query: String): WSetConnection!
   publishedWords(orderBy: WordOrder, query: String): WordConnection!
+  publishedXwords(orderBy: XwordOrder, query: String): XwordConnection!
   setWords(id: String!): [Word!]!
+  titleXwords(title: String!, titleLang: String!): [Xword!]!
   userFolders(id: String!): [Folder!]!
   userPosts(id: String!): [Post!]!
   userWSets(id: String!): [WSet!]!
   word(id: String!): Word!
   wset(id: String!): WSet!
+  xword(id: String!): Xword!
 }
 
 """User role"""
@@ -201,6 +215,7 @@ type Subscription {
   postCreated: Post!
   wordCreated: Word!
   wsetCreated: WSet!
+  xwordCreated: Xword!
 }
 
 type Token {
@@ -304,6 +319,47 @@ input WordOrder {
 
 """Properties by which connections can be ordered."""
 enum WordOrderField {
+  createdAt
+  description
+  id
+  title
+  updatedAt
+}
+
+type Xword {
+  audio: String
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  descLang: String
+  description: String
+  id: ID!
+  img: String
+  title: String!
+  titleLang: String
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
+type XwordConnection {
+  edges: [XwordEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type XwordEdge {
+  cursor: String!
+  node: Xword!
+}
+
+input XwordOrder {
+  direction: OrderDirection!
+  field: XwordOrderField!
+}
+
+"""Properties by which connections can be ordered."""
+enum XwordOrderField {
   createdAt
   description
   id

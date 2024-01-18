@@ -21,7 +21,4 @@ export class CreateXwordInput {
 
   @Field()
   audio: string;
-
-  @Field()
-  setId: string;
 }
