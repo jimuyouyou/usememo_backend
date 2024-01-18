@@ -63,6 +63,10 @@ Table Word {
   audio String [not null]
   wset WSet
   setId String
+
+  indexes {
+    (title, titleLang) [unique]
+  }
 }
 
 Table Xword {
@@ -75,6 +79,10 @@ Table Xword {
   descLang String [not null]
   img String [not null]
   audio String [not null]
+
+  indexes {
+    (title, titleLang) [unique]
+  }
 }
 
 Enum Role {
