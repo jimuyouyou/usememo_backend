@@ -41,7 +41,7 @@ CREATE TABLE "Folder" (
 );
 
 -- CreateTable
-CREATE TABLE "WSet" (
+CREATE TABLE "Wset" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE "WSet" (
     "authorId" TEXT,
     "folderId" TEXT,
 
-    CONSTRAINT "WSet_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Wset_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -94,10 +94,10 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") 
 ALTER TABLE "Folder" ADD CONSTRAINT "Folder_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WSet" ADD CONSTRAINT "WSet_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Wset" ADD CONSTRAINT "Wset_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WSet" ADD CONSTRAINT "WSet_folderId_fkey" FOREIGN KEY ("folderId") REFERENCES "Folder"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Wset" ADD CONSTRAINT "Wset_folderId_fkey" FOREIGN KEY ("folderId") REFERENCES "Folder"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Word" ADD CONSTRAINT "Word_setId_fkey" FOREIGN KEY ("setId") REFERENCES "WSet"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Word" ADD CONSTRAINT "Word_setId_fkey" FOREIGN KEY ("setId") REFERENCES "Wset"("id") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -4,7 +4,7 @@ import { Folder } from '../../folders/models/folder.model';
 import { BaseModel } from '../../common/models/base.model';
 
 @ObjectType()
-export class WSet extends BaseModel {
+export class Wset extends BaseModel {
   @Field()
   title: string;
 

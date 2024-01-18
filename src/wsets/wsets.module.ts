@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { WSetsResolver } from './wsets.resolver';
+import { WsetsResolver } from './wsets.resolver';
 
 @Module({
   imports: [],
-  providers: [WSetsResolver],
+  providers: [WsetsResolver],
 })
-export class WSetsModule {}
+export class WsetsModule {}

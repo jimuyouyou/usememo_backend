@@ -1,7 +1,7 @@
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 import { Order } from '../../common/order/order';
 
-export enum WSetOrderField {
+export enum WsetOrderField {
   id = 'id',
   createdAt = 'createdAt',
   updatedAt = 'updatedAt',
@@ -9,13 +9,13 @@ export enum WSetOrderField {
   description = 'description',
 }
 
-registerEnumType(WSetOrderField, {
-  name: 'WSetOrderField',
+registerEnumType(WsetOrderField, {
+  name: 'WsetOrderField',
   description: 'Properties by which connections can be ordered.',
 });
 
 @InputType()
-export class WSetOrder extends Order {
-  @Field(() => WSetOrderField)
-  field: WSetOrderField;
+export class WsetOrder extends Order {
+  @Field(() => WsetOrderField)
+  field: WsetOrderField;
 }

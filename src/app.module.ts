@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { FoldersModule } from './folders/folders.module';
-import { WSetsModule } from './wsets/wsets.module';
+import { WsetsModule } from './wsets/wsets.module';
 import { WordsModule } from './words/words.module';
 import { XwordsModule } from './xwords/xwords.module';
 import config from './common/configs/config';
@@ -41,7 +41,7 @@ import { GqlConfigService } from './gql-config.service';
     UsersModule,
     PostsModule,
     FoldersModule,
-    WSetsModule,
+    WsetsModule,
     WordsModule,
     XwordsModule,
   ],

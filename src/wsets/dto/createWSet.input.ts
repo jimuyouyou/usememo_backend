@@ -2,7 +2,7 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateWSetInput {
+export class CreateWsetInput {
   @Field()
   @IsNotEmpty()
   title: string;

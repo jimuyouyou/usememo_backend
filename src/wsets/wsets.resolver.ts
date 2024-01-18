@@ -15,31 +15,31 @@ import { PaginationArgs } from '../common/pagination/pagination.args';
 import { UserEntity } from '../common/decorators/user.decorator';
 import { User } from '../users/models/user.model';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
-import { WSetIdArgs } from './args/wset-id.args';
+import { WsetIdArgs } from './args/wset-id.args';
 import { UserIdArgs } from './args/user-id.args';
-import { WSet } from './models/wset.model';
-import { WSetConnection } from './models/wset-connection.model';
-import { WSetOrder } from './dto/wset-order.input';
-import { CreateWSetInput } from './dto/createWSet.input';
+import { Wset } from './models/wset.model';
+import { WsetConnection } from './models/wset-connection.model';
+import { WsetOrder } from './dto/wset-order.input';
+import { CreateWsetInput } from './dto/createWset.input';
 
 const pubSub = new PubSub();
 
-@Resolver(() => WSet)
-export class WSetsResolver {
+@Resolver(() => Wset)
+export class WsetsResolver {
   constructor(private prisma: PrismaService) {}
 
-  @Subscription(() => WSet)
+  @Subscription(() => Wset)
   wsetCreated() {
     return pubSub.asyncIterator('wsetCreated');
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => WSet)
-  async createWSet(
+  @Mutation(() => Wset)
+  async createWset(
     @UserEntity() user: User,
-    @Args('data') data: CreateWSetInput,
+    @Args('data') data: CreateWsetInput,
   ) {
-    const newWSet = this.prisma.wSet.create({
+    const newWset = await this.prisma.wset.create({
       data: {
         title: data.title,
         description: data.description,
@@ -47,25 +47,25 @@ export class WSetsResolver {
         authorId: user.id,
       },
     });
-    pubSub.publish('wsetCreated', { wsetCreated: newWSet });
-    return newWSet;
+    pubSub.publish('wsetCreated', { wsetCreated: newWset });
+    return newWset;
   }
 
-  @Query(() => WSetConnection)
-  async publishedWSets(
+  @Query(() => WsetConnection)
+  async publishedWsets(
     @Args() { after, before, first, last }: PaginationArgs,
     @Args({ name: 'query', type: () => String, nullable: true })
     query: string,
     @Args({
       name: 'orderBy',
-      type: () => WSetOrder,
+      type: () => WsetOrder,
       nullable: true,
     })
-    orderBy: WSetOrder,
+    orderBy: WsetOrder,
   ) {
     const a = await findManyCursorConnection(
       (args) =>
-        this.prisma.wSet.findMany({
+        this.prisma.wset.findMany({
           include: { author: true },
           where: {
             title: { contains: query || '' },
@@ -74,7 +74,7 @@ export class WSetsResolver {
           ...args,
         }),
       () =>
-        this.prisma.wSet.count({
+        this.prisma.wset.count({
           where: {
             title: { contains: query || '' },
           },
@@ -84,9 +84,9 @@ export class WSetsResolver {
     return a;
   }
 
-  @Query(() => [WSet])
-  userWSets(@Args('id') id: string) {
-    return this.prisma.user.findUnique({ where: { id: id } }).wsets();
+  @Query(() => [Wset])
+  async userWsets(@Args('id') id: string) {
+    return await this.prisma.user.findUnique({ where: { id: id } }).wsets();
 
     // or
     // return this.prisma.wsets.findMany({
@@ -96,9 +96,9 @@ export class WSetsResolver {
     // });
   }
 
-  @Query(() => [WSet])
-  folderWSets(@Args('id') id: string) {
-    return this.prisma.folder.findUnique({ where: { id: id } }).wsets();
+  @Query(() => [Wset])
+  async folderWsets(@Args('id') id: string) {
+    return await this.prisma.folder.findUnique({ where: { id: id } }).wsets();
 
     // or
     // return this.prisma.wsets.findMany({
@@ -108,13 +108,13 @@ export class WSetsResolver {
     // });
   }
 
-  @Query(() => WSet)
+  @Query(() => Wset)
   async wset(@Args('id') id: string) {
-    return this.prisma.wSet.findUnique({ where: { id } });
+    return await this.prisma.wset.findUnique({ where: { id } });
   }
 
   @ResolveField('author', () => User)
-  async author(@Parent() wset: WSet) {
-    return this.prisma.wSet.findUnique({ where: { id: wset.id } }).author();
+  async author(@Parent() wset: Wset) {
+    return await this.prisma.wset.findUnique({ where: { id: wset.id } }).author();
   }
 }

@@ -26,12 +26,6 @@ input CreatePostInput {
   title: String!
 }
 
-input CreateWSetInput {
-  description: String!
-  folderId: String!
-  title: String!
-}
-
 input CreateWordInput {
   audio: String!
   descLang: String!
@@ -40,6 +34,12 @@ input CreateWordInput {
   setId: String!
   title: String!
   titleLang: String!
+}
+
+input CreateWsetInput {
+  description: String!
+  folderId: String!
+  title: String!
 }
 
 input CreateXwordInput {
@@ -108,8 +108,8 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createFolder(data: CreateFolderInput!): Folder!
   createPost(data: CreatePostInput!): Post!
-  createWSet(data: CreateWSetInput!): WSet!
   createWord(data: CreateWordInput!): Word!
+  createWset(data: CreateWsetInput!): Wset!
   createXword(data: CreateXwordInput!): Xword!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
@@ -176,7 +176,7 @@ enum PostOrderField {
 
 type Query {
   folder(id: String!): Folder!
-  folderWSets(id: String!): [WSet!]!
+  folderWsets(id: String!): [Wset!]!
   hello(name: String!): String!
   helloWorld: String!
   me: User!
@@ -184,16 +184,16 @@ type Query {
   post: Post!
   publishedFolders(orderBy: FolderOrder, query: String): FolderConnection!
   publishedPosts(orderBy: PostOrder, query: String): PostConnection!
-  publishedWSets(orderBy: WSetOrder, query: String): WSetConnection!
   publishedWords(orderBy: WordOrder, query: String): WordConnection!
+  publishedWsets(orderBy: WsetOrder, query: String): WsetConnection!
   publishedXwords(orderBy: XwordOrder, query: String): XwordConnection!
   setWords(id: String!): [Word!]!
   titleXwords(title: String!, titleLang: String!): Xword!
   userFolders(id: String!): [Folder!]!
   userPosts(id: String!): [Post!]!
-  userWSets(id: String!): [WSet!]!
+  userWsets(id: String!): [Wset!]!
   word(id: String!): Word!
-  wset(id: String!): WSet!
+  wset(id: String!): Wset!
   xword(id: String!): Xword!
 }
 
@@ -214,7 +214,7 @@ type Subscription {
   folderCreated: Folder!
   postCreated: Post!
   wordCreated: Word!
-  wsetCreated: WSet!
+  wsetCreated: Wset!
   xwordCreated: Xword!
 }
 
@@ -245,45 +245,6 @@ type User {
   updatedAt: DateTime!
 }
 
-type WSet {
-  author: User
-
-  """Identifies the date and time when the object was created."""
-  createdAt: DateTime!
-  description: String
-  folder: Folder
-  id: ID!
-  title: String!
-
-  """Identifies the date and time when the object was last updated."""
-  updatedAt: DateTime!
-}
-
-type WSetConnection {
-  edges: [WSetEdge!]
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-type WSetEdge {
-  cursor: String!
-  node: WSet!
-}
-
-input WSetOrder {
-  direction: OrderDirection!
-  field: WSetOrderField!
-}
-
-"""Properties by which connections can be ordered."""
-enum WSetOrderField {
-  createdAt
-  description
-  id
-  title
-  updatedAt
-}
-
 type Word {
   audio: String
 
@@ -298,7 +259,7 @@ type Word {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: DateTime!
-  wset: WSet
+  wset: Wset
 }
 
 type WordConnection {
@@ -319,6 +280,45 @@ input WordOrder {
 
 """Properties by which connections can be ordered."""
 enum WordOrderField {
+  createdAt
+  description
+  id
+  title
+  updatedAt
+}
+
+type Wset {
+  author: User
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  description: String
+  folder: Folder
+  id: ID!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
+type WsetConnection {
+  edges: [WsetEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type WsetEdge {
+  cursor: String!
+  node: Wset!
+}
+
+input WsetOrder {
+  direction: OrderDirection!
+  field: WsetOrderField!
+}
+
+"""Properties by which connections can be ordered."""
+enum WsetOrderField {
   createdAt
   description
   id

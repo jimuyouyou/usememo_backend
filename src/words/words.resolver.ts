@@ -14,7 +14,7 @@ import { UseGuards } from '@nestjs/common';
 import { PaginationArgs } from '../common/pagination/pagination.args';
 import { UserEntity } from '../common/decorators/user.decorator';
 import { User } from '../users/models/user.model';
-import { WSet } from '../wsets/models/WSet.model';
+import { Wset } from '../wsets/models/Wset.model';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { WordIdArgs } from './args/word-id.args';
 import { UserIdArgs } from './args/user-id.args';
@@ -97,7 +97,7 @@ export class WordsResolver {
 
   @Query(() => [Word])
   async setWords(@Args('id') id: string) {
-    return await this.prisma.wSet.findUnique({ where: { id: id } }).words();
+    return await this.prisma.wset.findUnique({ where: { id: id } }).words();
   }
 
   @Query(() => Word)
@@ -105,7 +105,7 @@ export class WordsResolver {
     return this.prisma.word.findUnique({ where: { id } });
   }
 
-  @ResolveField('wset', () => WSet)
+  @ResolveField('wset', () => Wset)
   async wset(@Parent() word: Word) {
     return this.prisma.word.findUnique({ where: { id: word.id } }).wset();
   }

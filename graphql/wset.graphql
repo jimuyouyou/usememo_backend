@@ -1,19 +1,19 @@
-query UserWSets {
-  userWSets(id: "clril6eus000011axpobz9v5k") {
-    ...WSetData
+query UserWsets {
+  userWsets(id: "clrixvy190000892qa6e0cblo") {
+    ...WsetData
   }
 }
 
-query FolderWSets {
-  folderWSets(id: "clrildibn00037icpo9zfgput") {
-    ...WSetData
+query FolderWsets {
+  folderWsets(id: "clrixxhp60001pe8wzpjypehh") {
+    ...WsetData
   }
 }
 
 
-query OneWSet {
-  wset(id: "clrilp57w0009l2pipkb26426") {
-    ...WSetData
+query OneWset {
+  wset(id: "clriy05s00003pe8w4xefhhwg") {
+    ...WsetData
   }
 }
 
@@ -40,8 +40,8 @@ query OneWSet {
 
 
 mutation CreateWSet {
-  createWSet(data: { description: "Hello", title: "New WSet", folderId:"clrildibn00037icpo9zfgput" }) {
-    ...WSetData
+  createWset(data: { description: "Hello", title: "New WSet", folderId:"clrixxhp60001pe8wzpjypehh" }) {
+    ...WsetData
   }
 }
 
@@ -51,7 +51,7 @@ mutation CreateWSet {
 #   }
 # }
 
-fragment WSetData on WSet {
+fragment WsetData on Wset {
   id
   createdAt
   updatedAt
