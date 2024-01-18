@@ -54,7 +54,7 @@ export class WordsResolver {
     @Args('id') id: string,
     @Args('data') data: CreateWordInput,
   ) {
-    const newWord = this.prisma.word.update({
+    const newWord = await this.prisma.word.update({
       where: { id },
       data,
     });
@@ -96,8 +96,8 @@ export class WordsResolver {
   }
 
   @Query(() => [Word])
-  setWords(@Args('id') id: string) {
-    return this.prisma.wSet.findUnique({ where: { id: id } }).words();
+  async setWords(@Args('id') id: string) {
+    return await this.prisma.wSet.findUnique({ where: { id: id } }).words();
   }
 
   @Query(() => Word)

@@ -188,7 +188,7 @@ type Query {
   publishedWords(orderBy: WordOrder, query: String): WordConnection!
   publishedXwords(orderBy: XwordOrder, query: String): XwordConnection!
   setWords(id: String!): [Word!]!
-  titleXwords(title: String!, titleLang: String!): [Xword!]!
+  titleXwords(title: String!, titleLang: String!): Xword!
   userFolders(id: String!): [Folder!]!
   userPosts(id: String!): [Post!]!
   userWSets(id: String!): [WSet!]!

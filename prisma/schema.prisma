@@ -73,6 +73,8 @@ model Word {
   audio       String
   wset        WSet?    @relation(fields: [setId], references: [id])
   setId       String?
+
+  @@unique([title, titleLang])
 }
 
 model Xword {
@@ -85,6 +87,8 @@ model Xword {
   descLang    String
   img         String
   audio       String
+
+  @@unique([title, titleLang])
 }
 
 enum Role {

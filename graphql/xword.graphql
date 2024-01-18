@@ -1,22 +1,22 @@
-query OneWord {
-  word(id: "clriw6iqm00052vaf3dxt18m5") {
-    ...WordData
+query OneXword {
+  xword(id: "clriw6iqm00052vaf3dxt18m5") {
+    ...XwordData
   }
 }
 
-query SetWords {
-  setWords(id: "clriw1tf400032vafnuswn9xs") {
-    ...WordData
+query SetXwords {
+  setXwords(id: "clriw1tf400032vafnuswn9xs") {
+    ...XwordData
   }
 }
 
-# query PublishedWordsConnection {
-#   publishedWords(first: 20, orderBy: { field: title, direction: desc }) {
+# query PublishedXwordsConnection {
+#   publishedXwords(first: 20, orderBy: { field: title, direction: desc }) {
 #     totalCount
 #     edges {
 #       cursor
 #       node {
-#         ...WordData
+#         ...XwordData
 #         author {
 #           ...UserData
 #         }
@@ -31,46 +31,46 @@ query SetWords {
 #   }
 # }
 
-mutation CreateWord {
-  createWord(
+mutation CreateXword {
+  createXword(
     data: {
       description: "Hello"
       descLang: ""
-      title: "New Word"
+      title: "New Xword"
       titleLang: ""
       setId: "clriw1tf400032vafnuswn9xs"
       audio: ""
       img: ""
     }
   ) {
-    ...WordData
+    ...XwordData
   }
 }
 
-mutation UpdateWord {
-  updateWord(
+mutation UpdateXword {
+  updateXword(
     id: "clriw6iqm00052vaf3dxt18m5"
     data: {
       description: "Hello"
       descLang: ""
-      title: "New Word"
+      title: "New Xword"
       titleLang: ""
       setId: "clriw1tf400032vafnuswn9xs"
       audio: ""
       img: ""
     }
   ) {
-    ...WordData
+    ...XwordData
   }
 }
 
-# subscription SubscriptionWord {
+# subscription SubscriptionXword {
 #   folderCreated {
-#     ...WordData
+#     ...XwordData
 #   }
 # }
 
-fragment WordData on Word {
+fragment XwordData on Xword {
   id
   createdAt
   updatedAt

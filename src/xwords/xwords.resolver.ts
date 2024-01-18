@@ -39,10 +39,10 @@ export class XwordsResolver {
     @UserEntity() user: User,
     @Args('data') data: CreateXwordInput,
   ) {
-    const newXword = this.prisma.xword.create({
+    const newXword = await this.prisma.xword.create({
       data,
     });
-    pubSub.publish('xwordCreated', { wordCreated: newXword });
+    pubSub.publish('xwordCreated', { xwordCreated: newXword });
     return newXword;
   }
 
@@ -94,12 +94,12 @@ export class XwordsResolver {
     return a;
   }
 
-  @Query(() => [Xword])
-  titleXwords(
+  @Query(() => Xword)
+  async titleXwords(
     @Args('title') title: string,
     @Args('titleLang') titleLang: string,
   ) {
-    const res = this.prisma.xword.findMany({ where: { title, titleLang } });
+    const res = await this.prisma.xword.findMany({ where: { title, titleLang } });
     return res && res[0];
   }
 
