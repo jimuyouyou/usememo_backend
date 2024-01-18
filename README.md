@@ -8,7 +8,7 @@ npm start
 - update file prisma/schema.prisma
 - npm run start:db 
   ``` equals to following three commands
-  npm run migrate:dev
+  npm run migrate:reset
   npm run prisma:generate
   npm run seed
   ```
