@@ -14,7 +14,7 @@ import { UseGuards } from '@nestjs/common';
 import { PaginationArgs } from '../common/pagination/pagination.args';
 import { UserEntity } from '../common/decorators/user.decorator';
 import { User } from '../users/models/user.model';
-import { Wset } from '../wsets/models/Wset.model';
+import { Wset } from '../wsets/models/wset.model';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { WordIdArgs } from './args/word-id.args';
 import { UserIdArgs } from './args/user-id.args';
