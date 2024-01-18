@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { FoldersModule } from './folders/folders.module';
-// import { SetsModule } from './sets/sets.module';
+import { WSetsModule } from './wsets/wsets.module';
 import config from './common/configs/config';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
@@ -39,6 +39,7 @@ import { GqlConfigService } from './gql-config.service';
     UsersModule,
     PostsModule,
     FoldersModule,
+    WSetsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

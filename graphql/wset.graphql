@@ -1,0 +1,60 @@
+query UserWSets {
+  userWSets(id: "clril6eus000011axpobz9v5k") {
+    ...WSetData
+  }
+}
+
+query FolderWSets {
+  folderWSets(id: "clrildibn00037icpo9zfgput") {
+    ...WSetData
+  }
+}
+
+
+query OneWSet {
+  wset(id: "clrilp57w0009l2pipkb26426") {
+    ...WSetData
+  }
+}
+
+# query PublishedWSetsConnection {
+#   publishedWSets(first: 20, orderBy: { field: title, direction: desc }) {
+#     totalCount
+#     edges {
+#       cursor
+#       node {
+#         ...WSetData
+#         author {
+#           ...UserData
+#         }
+#       }
+#     }
+#     pageInfo {
+#       startCursor
+#       endCursor
+#       hasNextPage
+#       hasPreviousPage
+#     }
+#   }
+# }
+
+
+mutation CreateWSet {
+  createWSet(data: { description: "Hello", title: "New WSet", folderId:"clrildibn00037icpo9zfgput" }) {
+    ...WSetData
+  }
+}
+
+# subscription SubscriptionWSet {
+#   wsetCreated {
+#     ...WSetData
+#   }
+# }
+
+fragment WSetData on WSet {
+  id
+  createdAt
+  updatedAt
+  title
+  description
+}

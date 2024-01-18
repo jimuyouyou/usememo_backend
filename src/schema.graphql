@@ -26,6 +26,12 @@ input CreatePostInput {
   title: String!
 }
 
+input CreateWSetInput {
+  description: String!
+  folderId: String!
+  title: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -83,6 +89,7 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createFolder(data: CreateFolderInput!): Folder!
   createPost(data: CreatePostInput!): Post!
+  createWSet(data: CreateWSetInput!): WSet!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
   signup(data: SignupInput!): Auth!
@@ -146,6 +153,7 @@ enum PostOrderField {
 
 type Query {
   folder(id: String!): Folder!
+  folderWSets(id: String!): [WSet!]!
   hello(name: String!): String!
   helloWorld: String!
   me: User!
@@ -153,8 +161,11 @@ type Query {
   post: Post!
   publishedFolders(orderBy: FolderOrder, query: String): FolderConnection!
   publishedPosts(orderBy: PostOrder, query: String): PostConnection!
+  publishedWSets(orderBy: WSetOrder, query: String): WSetConnection!
   userFolders(id: String!): [Folder!]!
   userPosts(id: String!): [Post!]!
+  userWSets(id: String!): [WSet!]!
+  wset(id: String!): WSet!
 }
 
 """User role"""
@@ -173,6 +184,7 @@ input SignupInput {
 type Subscription {
   folderCreated: Folder!
   postCreated: Post!
+  wsetCreated: WSet!
 }
 
 type Token {
@@ -200,4 +212,43 @@ type User {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: DateTime!
+}
+
+type WSet {
+  author: User
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  description: String
+  folder: Folder
+  id: ID!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
+type WSetConnection {
+  edges: [WSetEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type WSetEdge {
+  cursor: String!
+  node: WSet!
+}
+
+input WSetOrder {
+  direction: OrderDirection!
+  field: WSetOrderField!
+}
+
+"""Properties by which connections can be ordered."""
+enum WSetOrderField {
+  createdAt
+  description
+  id
+  title
+  updatedAt
 }
