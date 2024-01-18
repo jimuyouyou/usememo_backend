@@ -20,7 +20,7 @@ import { UserIdArgs } from './args/user-id.args';
 import { Wset } from './models/wset.model';
 import { WsetConnection } from './models/wset-connection.model';
 import { WsetOrder } from './dto/wset-order.input';
-import { CreateWsetInput } from './dto/createWset.input';
+import { CreateWsetInput } from './dto/createwset.input';
 
 const pubSub = new PubSub();
 
