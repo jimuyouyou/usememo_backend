@@ -84,8 +84,9 @@ export class FoldersResolver {
   }
 
   @Query(() => [Folder])
-  userFolders(@Args('id') id: string) {
-    return this.prisma.user.findUnique({ where: { id: id } }).folders();
+  @UseGuards(GqlAuthGuard)
+  userFolders(@UserEntity() user: User) {
+    return this.prisma.user.findUnique({ where: { id: user.id } }).folders();
 
     // or
     // return this.prisma.folders.findMany({
