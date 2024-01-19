@@ -1,5 +1,5 @@
 query UserWsets {
-  userWsets(id: "clrixvy190000892qa6e0cblo") {
+  userWsets {
     ...WsetData
   }
 }

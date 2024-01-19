@@ -191,7 +191,7 @@ type Query {
   titleXwords(title: String!, titleLang: String!): Xword!
   userFolders: [Folder!]!
   userPosts(id: String!): [Post!]!
-  userWsets(id: String!): [Wset!]!
+  userWsets: [Wset!]!
   word(id: String!): Word!
   wset(id: String!): Wset!
   xword(id: String!): Xword!

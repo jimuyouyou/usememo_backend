@@ -85,27 +85,16 @@ export class WsetsResolver {
   }
 
   @Query(() => [Wset])
-  async userWsets(@Args('id') id: string) {
-    return await this.prisma.user.findUnique({ where: { id: id } }).wsets();
-
-    // or
-    // return this.prisma.wsets.findMany({
-    //   where: {
-    //     author: { id: id.userId }
-    //   }
-    // });
+  @UseGuards(GqlAuthGuard)
+  async userWsets(@UserEntity() user: User) {
+    return await this.prisma.user
+      .findUnique({ where: { id: user.id } })
+      .wsets();
   }
 
   @Query(() => [Wset])
   async folderWsets(@Args('id') id: string) {
     return await this.prisma.folder.findUnique({ where: { id: id } }).wsets();
-
-    // or
-    // return this.prisma.wsets.findMany({
-    //   where: {
-    //     author: { id: id.userId }
-    //   }
-    // });
   }
 
   @Query(() => Wset)
@@ -115,6 +104,8 @@ export class WsetsResolver {
 
   @ResolveField('author', () => User)
   async author(@Parent() wset: Wset) {
-    return await this.prisma.wset.findUnique({ where: { id: wset.id } }).author();
+    return await this.prisma.wset
+      .findUnique({ where: { id: wset.id } })
+      .author();
   }
 }
